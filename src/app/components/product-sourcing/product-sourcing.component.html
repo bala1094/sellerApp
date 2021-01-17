@@ -1,0 +1,12 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav mode="side" opened>
+    <app-menu [showPushNav]="showPushNav" [currenPage]="'productSourcing'"></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content [@onMainContentChange]="showPushNav ? 'open': 'close'">
+    <div class="main_content">
+      <div style="padding: 20px">
+        Your content
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,14 @@
+#header {
+    width: 100%;
+    height: 50px;
+}
+
+.material-icons-outlined {
+    margin: 10px;
+    font-size: 30px;
+    cursor: pointer;
+}
+.logo {
+    width: 130px;
+    height: 30px
+}

@@ -1,0 +1,55 @@
+<mat-sidenav-container class="container">
+  <mat-sidenav mode="side" opened>
+    <app-menu [showPushNav]="showPushNav" [currenPage]="'resources'"></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content [@onMainContentChange]="showPushNav ? 'open': 'close'">
+    <div class="main_content">
+      <div class="route-text">
+        <img src="./../../../assets/images/home.svg" alt="">
+				<span>&nbsp;/&nbsp;Resources</span>
+      </div>
+      <div class="body-data">
+        <div class="tab">
+          <a [ngClass]="{'active': activeTab === 'all'}"
+          (click)="showResources('all')">All</a>
+          <a [ngClass]="{'active': activeTab === 'blog'}"
+          (click)="showResources('blog')">Blog</a>
+          <a [ngClass]="{'active': activeTab === 'video'}"
+          (click)="showResources('video')">Video</a>
+        </div>  
+        <div class="search-bar">
+          <input class="search-option" type="text" placeholder="Search">
+        </div>
+        <div class="resources-data">
+          <ng-container *ngIf="activeTab === 'all'">
+            <div class="resource-data" *ngFor="let data of resourcesData">  
+                <img class="resource-img" [src]="data.image">  
+              <div class="resource-text-btn-container">
+                <p class="resource-text-container">{{data.title}}</p>
+                <p class="resource-btn-container"> {{data.buttonText}}</p>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="activeTab === 'blog'">
+            <div class="resource-data" *ngFor="let data of resourcesData | resourceFilter: 'blog'">        
+              <img class="resource-img" [src]="data.image">
+              <div class="resource-text-btn-container">
+                <p class="resource-text-container">{{data.title}}</p>
+                <p class="resource-btn-container"> {{data.buttonText}}</p>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngIf="activeTab === 'video'">
+            <div class="resource-data" *ngFor="let data of resourcesData | resourceFilter: 'video'">        
+              <img class="resource-img" [src]="data.image">
+              <div class="resource-text-btn-container">
+                <p class="resource-text-container">{{data.title}}</p>
+                <p class="resource-btn-container"> {{data.buttonText}}</p>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
