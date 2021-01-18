@@ -21,6 +21,10 @@ export class ProductSourcingComponent implements OnInit {
   productDataStartPosition = 0;
   productDataEndPosition = this.pageSize;
   enDropDown;
+  showLowToHigh = false;
+  setClearFilter = false;
+  supplierCountries: string[];
+  productType = ['trade assurance', 'verified', 'readyToShip'];
   constructor(private appStateManagerService: AppStateManagerService) {
     this.appStateManagerService.showPushNav$.subscribe(res => {
       this.showPushNav = res;
@@ -37,6 +41,8 @@ export class ProductSourcingComponent implements OnInit {
       this.productSourceData = this.appStateManagerService.productSourceData;
       this.enDropDown = new Array(this.productSourceData.productList.length);
       this.enDropDown.fill(false);
+      this.supplierCountries =
+        this.removeDuplicates(this.productSourceData.productList, 'supplierCountry');
     });
   }
 
@@ -52,5 +58,40 @@ export class ProductSourcingComponent implements OnInit {
   }
   toggleDropDown(elementIndex) {
     this.enDropDown[elementIndex] = !this.enDropDown[elementIndex];
+  }
+
+  sort(sortManner: string) {
+    this.setClearFilter = true;
+    if (sortManner === 'showHighToLow') {
+      this.productSourceData.productList.sort((a, b) => {
+        return b.priceTo - a.priceTo;
+      });
+      this.showLowToHigh = true;
+    } else if (sortManner === 'showLowToHigh') {
+      this.productSourceData.productList.sort((a, b) => {
+        return a.priceTo - b.priceTo;
+      });
+      this.showLowToHigh = false;
+    }
+  }
+
+  clearAllFilters() {
+    this.fetchdata();
+    this.showLowToHigh = false;
+    this.setClearFilter = false;
+  }
+
+  removeDuplicates(array, key: string) {
+    const dummyObj = {};
+    array.forEach(element => {
+      if (element[key]) {
+        const temp = element[key];
+        dummyObj[temp] = true;
+      }
+    });
+    return Object.keys(dummyObj);
+  }
+  valueChange(event) {
+    console.log(event);
   }
 }

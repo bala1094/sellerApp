@@ -13,7 +13,8 @@ import {
   MatCheckboxModule,
   MatListModule,
   MatTabsModule,
-  MatPaginatorModule
+  MatPaginatorModule,
+  MatSelectModule
  } from '@angular/material';
 
 import { AppComponent } from './app.component';
@@ -45,7 +46,8 @@ import { ResourceFilterPipe } from './pipes/resource-filter.pipe';
     MatCheckboxModule,
     MatListModule,
     MatTabsModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatSelectModule
   ],
   providers: [AppStateManagerService],
   bootstrap: [AppComponent]

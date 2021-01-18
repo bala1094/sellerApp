@@ -59,6 +59,32 @@
             <p class="result-text"><i>Showing Results for :</i>  <b>{{productSourceData.keyword | titlecase}}</b></p>
             <p class="result-number">Total Results: {{productSourceData.productList.length}}</p>
           </div>
+          <div class="array-manipulation-container">
+            <div class="custom-function-container">
+              <mat-select placeholder="Supplier country" (selectionChange)=valueChange($event)>
+                <mat-option *ngFor="let country of supplierCountries" [value]="country">
+                  {{ country }}
+                </mat-option>
+              </mat-select>
+                <mat-select placeholder="Product type" multiple>
+                  <mat-option *ngFor="let product of productType" [value]="productType">{{product}}</mat-option>
+                </mat-select>
+            </div> 
+            <div class="sort-container" >
+              <img *ngIf="!showLowToHigh" 
+              (click)="sort('showHighToLow')"
+              src="./../../../assets/images/sort high to low.svg">
+              <span *ngIf="!showLowToHigh"  class="tooltiptext">Sort price high to low</span>
+              <img *ngIf="showLowToHigh"
+              (click)="sort('showLowToHigh')"
+               src="./../../../assets/images/sort low to high.svg">
+               <span *ngIf="showLowToHigh" class="tooltiptext">Sort price low to high</span>
+              <p
+              (click)="clearAllFilters()"
+              [ngClass]="{'active': setClearFilter,'in-active': !setClearFilter}"
+              >Clear Filter</p>
+            </div> 
+          </div>
           <div class="product-data-containter" 
             *ngFor="let product of productSourceData.productList | slice:productDataStartPosition:productDataEndPosition; let i=index;">
             <div class="data-containter">
@@ -78,6 +104,7 @@
                     {{product.minOrderUnit}}
                   </span>
                 </p>
+                <p class="ready-to-ship" *ngIf="product.isReadyToShip">Ready to ship</p>
               </div>
               <div class="vendor-details">
                 <img src="../../../assets/images/alibaba_logo.svg">
@@ -99,9 +126,9 @@
               </mat-icon>    
               </div>    
             </div>
-            <div class="supplier-container">
+            <div  *ngIf="!enDropDown[i]" class="supplier-container">
               <p>
-                Supploer Details:
+                Suppler Details:
                 &emsp;&emsp;
                 {{product.supplierName}}
                 &emsp;
@@ -118,8 +145,9 @@
             </div>
             <div class="zippy-container" *ngIf="enDropDown[i]">
               <div class="product-details">
-                <h3>Product details</h3>
-                <ul class="ul-product-details">
+                <h3 style="margin-left: 10px;">Product details</h3>
+                <div class="border-line"></div>
+                <ul style="margin-left: 10px;" class="ul-product-details">
                   <li *ngFor="let item of product.attributes"
                   class="li-product-details">
                     <span class="attr-name">{{item.attrName}}</span> : {{item.attrValue}}
@@ -128,6 +156,7 @@
               </div>
               <div class="supplier-details">
                 <h3>Supplier details</h3>
+                <div class="border-line"></div>
                 <h4>{{product.supplierName}}</h4>
                 <div class="verification">
                   <img class="trade-assuranse"
