@@ -1,6 +1,8 @@
 # Deployed app
 
 https://sellerapp-two-page.herokuapp.com/
+
+Cant you the above link for "product Sourcing" page since the list of products are fetched from HTTP protocol(mixed content issue).
 ## Tech stacks used
     - Angular 5
     - RxjS
