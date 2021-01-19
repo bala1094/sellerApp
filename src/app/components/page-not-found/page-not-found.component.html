@@ -1,0 +1,20 @@
+<mat-sidenav-container class="my-container">
+  <mat-sidenav mode="side" opened>
+    <app-menu [showPushNav]="showPushNav" [currenPage]="''"></app-menu>
+  </mat-sidenav>
+  <mat-sidenav-content [@onMainContentChange]="showPushNav ? 'open': 'close'">
+    <div class="my-main_content">
+      <div class="my-route-text">
+      </div>
+      <div class="my-body-data">
+        <div class="error-containter">
+          <p class="whoop">Whoops!</p>
+          <p class="we-couldnt">We Couldn't find the page</p>
+          <p class="we-are-looking">you are looking for.</p>
+          <p class="error-code">Error code: 404</p>
+          <!-- <star-rating value="5" totalstars="5" checkedcolor="yellow" uncheckedcolor="black" size="24px"></star-rating> -->
+        </div>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

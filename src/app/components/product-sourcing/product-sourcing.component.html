@@ -1,104 +1,197 @@
-<mat-sidenav-container class="container">
+<mat-sidenav-container class="my-container">
   <mat-sidenav mode="side" opened>
     <app-menu [showPushNav]="showPushNav" [currenPage]="'productSourcing'"></app-menu>
   </mat-sidenav>
   <mat-sidenav-content [@onMainContentChange]="showPushNav ? 'open': 'close'">
-    <div class="main_content">
-      <div class="route-text">
+    <div class="my-main_content">
+      <div class="my-route-text">
         <img src="./../../../assets/images/home.svg" alt="">
-				<span>&nbsp;/&nbsp;Product Sourcing</span>
+        <span>&nbsp;/&nbsp;Product Sourcing</span>
       </div>
-      <div class="body-data">
-        <div class="search-containter" *ngIf="!dataAvailable">
+      <div class="my-body-data">
+        <div class="my-search-containter" *ngIf="!dataAvailable">
           <h1>Product Sourcing</h1>
           <p>Find the best manufacturers to source your next Amazon product launch</p>
-          <div class="powered-by-container">
+          <div class="my-powered-by-container">
             <p>Powered by</p>
             <img src="./../../../assets/images/alibaba logo full.svg" alt="">
           </div>
-          <div class="search-box">
+          <div class="my-search-box">
             <input 
-            [ngModel]="searchText" 
-            class="search-box-input"
-            type="text"
+            [(ngModel)]="searchText" 
+            [ngModelOptions]="{standalone: true}"
+            class="my-search-box-input" 
+            type="text" 
             placeholder="Enter product keyword">
-            <p (click)="fetchdata()" class="search-text-btn">Search</p>
+            <button [disabled]="searchText.length === 0"
+            (click)="fetchdata()" 
+            type="text" 
+            class="btn btn-primary my-search-text-btn">Search</button>
           </div>
-          <div class="notes-containter">
-            <div class="notes">
+          <div class="my-notes-containter">
+            <div class="my-notes">
               <img src="../../../assets/images/bullets.svg">
               <h4>Reliable and easy</h4>
               <p>Use a simple keyword search to discover the best suppliers and manufacturers on Alibaba.
               </p>
             </div>
-            <div class="notes">
+            <div class="my-notes">
               <img src="../../../assets/images/bullets.svg">
-              <h4>Reliable and easy</h4>
+              <h4>Time-efficient</h4>
               <p>Make informed decisions quicker with critical product and supplier data available at your fingertips.
               </p>
             </div>
-            <div class="notes">
+            <div class="my-notes">
               <img src="../../../assets/images/bullets.svg">
-              <h4>Reliable and easy</h4>
-              <p>Take advantage of unique search filters to refine your search results and find the perfect 
+              <h4>Refined results</h4>
+              <p>Take advantage of unique search filters to refine your search results and find the perfect
                 match for your Amazon business.
               </p>
-            </div>   
+            </div>
           </div>
         </div>
-        <div class="search-containter" *ngIf="dataAvailable">
-          <div class="search-box search-align">
+        <div class="my-search-containter" *ngIf="dataAvailable">
+          <div class="my-search-box my-search-align">
             <input 
-            [ngModel]="searchText" 
-            class="search-box-input"
-            type="text"
+            [(ngModel)]="searchText" 
+            [ngModelOptions]="{standalone: true}"
+            class="my-search-box-input" 
+            type="text" 
             placeholder="Enter product keyword">
-            <p (click)="fetchdata()" class="search-text-btn">Search</p>
+            <button [disabled]="searchText.length === 0"
+            (click)="fetchdata()" 
+            type="text" 
+            class="btn btn-primary my-search-text-btn">Search</button>
           </div>
-          <div class="result-summary">
-            <p class="result-text"><i>Showing Results for :</i>  <b>{{productSourceData.keyword | titlecase}}</b></p>
-            <p class="result-number">Total Results: {{productSourceData.productList.length}}</p>
+          <div class="my-result-summary">
+            <p class="result-text"><i>Showing Results for :</i> <b>{{searchText | titlecase}}</b></p>
+            <p class="my-result-number">Total Results: {{productSourceData.productList.length}}</p>
           </div>
           <div class="array-manipulation-container">
-            <div class="custom-function-container">
-              <mat-select placeholder="Supplier country" (selectionChange)=valueChange($event)>
-                <mat-option *ngFor="let country of supplierCountries" [value]="country">
-                  {{ country }}
-                </mat-option>
-              </mat-select>
-                <mat-select placeholder="Product type" multiple>
-                  <mat-option *ngFor="let product of productType" [value]="productType">{{product}}</mat-option>
-                </mat-select>
-            </div> 
-            <div class="sort-container" >
-              <img *ngIf="!showLowToHigh" 
-              (click)="sort('showHighToLow')"
-              src="./../../../assets/images/sort high to low.svg">
-              <span *ngIf="!showLowToHigh"  class="tooltiptext">Sort price high to low</span>
-              <img *ngIf="showLowToHigh"
-              (click)="sort('showLowToHigh')"
-               src="./../../../assets/images/sort low to high.svg">
-               <span *ngIf="showLowToHigh" class="tooltiptext">Sort price low to high</span>
-              <p
-              (click)="clearAllFilters()"
-              [ngClass]="{'active': setClearFilter,'in-active': !setClearFilter}"
-              >Clear Filter</p>
-            </div> 
-          </div>
-          <div class="product-data-containter" 
-            *ngFor="let product of productSourceData.productList | slice:productDataStartPosition:productDataEndPosition; let i=index;">
-            <div class="data-containter">
-              <div class="img">
-                <img [src]="product.productImg" alt="">
+            <div class="custom-function-container">         
+              <!-- supplied country -->
+              <div ngbDropdown class="d-inline-block">
+                <button 
+                    class="btn btn-outline-primary" 
+                    id="dropdownForm1"
+                    ngbDropdownToggle>{{ filterCountriesList[0] || 'Supplier Country'}}
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                  <ng-container *ngFor="let country of supplierCountries">
+                    <div style="display: flex; margin-left:5px;" (click)="valueChange(country,'countries')">
+                        <img style="width: 25px;margin-right: 10px;" src='{{"../../../assets/images/"+ country +".svg"}}'>
+                        <p style="margin: 0px;">{{country| titlecase}}</p>
+                    </div>
+                  </ng-container>
+                </div>
               </div>
-              <div class="title-container">
-                <p class="title" style="color:#2c8af8">{{product.productTitle}}</p>
-                <p>Price: 
+              <!-- product type -->
+              <div ngbDropdown [autoClose]="'outside'" class="d-inline-block">
+                <button 
+                    class="btn btn-outline-primary" 
+                    id="dropdownForm1"
+                    ngbDropdownToggle>Product type
+                </button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                    <div style="margin:5px;margin-bottom: 10px;"  
+                        style="display: flex; width: 200px;" 
+                        *ngFor="let product of productType">
+                            <input style="margin: 5px;" type="checkbox" 
+                            (click)="valueChange(product.value,'productType')">
+                            <img *ngIf="product.value === 'isTradeAssuranceSupplier'" style="width: 20px;margin-right: 10px;"
+                                src='../../../assets/images/trade-assurance-alibaba.svg'>
+                            <img *ngIf="product.value === 'isAssessedSupplier'" style="width: 25px;margin-right: 10px;"
+                                src='../../../assets/images/verified.svg'>
+                            <p style="margin:0px;">{{product['displayText'] | titlecase}}</p>
+                    </div>
+                </div>
+              </div>
+              <!-- min order qty -->
+              <div ngbDropdown [autoClose]="'outside'" class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>min quanity
+                  order</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                  <form class="px-4 py-3">
+                    <div class="form-group">
+                      <input type="text" 
+                      class="form-control" [(ngModel)]="orderQuantity"
+                      (change)="minOrderChanged()"
+                      [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="order-quantity-details">
+                      <button [disabled]="orderQuantity === null" (click)="clearMinOrderQty()" style="margin:5px;" type="text" class="btn btn-primary">Clear</button>
+                      <button [disabled]="orderQuantity === null" (click)="setMinOrderQty()" style="margin:5px;" type="text" class="btn btn-primary">Apply</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+              <!-- min max price -->
+              <div ngbDropdown [autoClose]="'outside'" class="d-inline-block">
+                <button class="btn btn-outline-primary" id="dropdownForm1" ngbDropdownToggle>Price range</button>
+                <div ngbDropdownMenu aria-labelledby="dropdownForm1">
+                  <form class="px-4 py-3">
+                    <div class="form-group my-price-container">
+                      <input type="text" 
+                      placeholder="min"
+                      class="form-control"
+                      [(ngModel)]="minPrice"
+                      [ngModelOptions]="{standalone: true}">
+                      <div class="my-border-line"></div>
+                      <input type="text" 
+                      placeholder="max"
+                      class="form-control" 
+                      [(ngModel)]="maxPrice"
+                      [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="order-quantity-details">
+                      <button 
+                      [disabled]="minPrice == null || maxPrice == null" 
+                      (click)="clearMinMaxPrice()" 
+                      style="margin:5px;" 
+                      type="text" 
+                      class="btn btn-primary">Clear</button>
+                      <button 
+                      [disabled]="minPrice === null || maxPrice === null"
+                      (click)="setMinMaxPrice()" 
+                      style="margin:5px;" 
+                      type="text" 
+                      class="btn btn-primary">Apply</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="my-sort-container">
+              <img *ngIf="!showLowToHigh" (click)="sort('showHighToLow')"
+                src="./../../../assets/images/sort high to low.svg">
+              <span *ngIf="!showLowToHigh" class="tooltiptext">Sort price high to low</span>
+              <img *ngIf="showLowToHigh" (click)="sort('showLowToHigh')"
+                src="./../../../assets/images/sort low to high.svg">
+              <span *ngIf="showLowToHigh" class="tooltiptext">Sort price low to high</span>
+              <p (click)="clearAllFilters()" [ngClass]="{'my-active': setClearFilter,'in-active': !setClearFilter}">
+                Clear Filter</p>
+            </div>
+          </div>
+          <div class="my-product-data-containter" *ngFor="let product of productSourceData.productList | 
+            countryFilter:filterCountriesList |
+            productFilter:filterProductTypeList | 
+            sortByLowPrice: sortValue |
+            minOrderQuantity: minOrderQty |
+            priceFilter: minPriceFilter : maxPriceFilter | 
+            slice:productDataStartPosition:productDataEndPosition ; let i=index;">
+            <div class="my-data-containter">
+              <img [src]="product.productImg" alt="">
+              <div class="my-title-container">
+                <p class="my-title-text">
+                  {{product.productTitle.length > 50 ?
+                  product.productTitle.slice(0,50) + '...' : product.productTitle
+                  }}</p>
+                <p>Price:
                   <span style="font-weight: bold;">
                     ${{product.priceFrom}} - ${{product.priceTo}}
                   </span>
                   &emsp;
-                  MOQ: 
+                  MOQ:
                   <span style="font-weight: bold;">
                     {{product.minOrderQuantity}}&nbsp;
                     {{product.minOrderUnit}}
@@ -106,126 +199,125 @@
                 </p>
                 <p class="ready-to-ship" *ngIf="product.isReadyToShip">Ready to ship</p>
               </div>
-              <div class="vendor-details">
-                <img src="../../../assets/images/alibaba_logo.svg">
-                <span class="vendor"
-                (click)="openAliSrc(product.productHref)">
-                View on Alibaba</span>
-                <span style="cursor: pointer;" (click)="toggleDropDown(i)">More details</span>  
-                <mat-icon 
-                  *ngIf="!enDropDown[i]"
-                  style="cursor: pointer;" 
-                  (click)="toggleDropDown(i)">
+              <div class="my-vendor-details">
+                <div class="vendor-logo">
+                  <img src="../../../assets/images/alibaba_logo.svg">
+                </div>
+                <span class="my-vendor" (click)="openAliSrc(product.productHref)">
+                  View on Alibaba</span>
+                <span style="cursor: pointer;" (click)="toggleDropDown(i)">More details</span>
+                <mat-icon *ngIf="!enDropDown[i]" style="cursor: pointer;" (click)="toggleDropDown(i)">
                   arrow_drop_down
-                </mat-icon>    
-                <mat-icon 
-                  *ngIf="enDropDown[i]"
-                  style="cursor: pointer;"
-                  (click)="toggleDropDown(i)">
-                arrow_drop_up
-              </mat-icon>    
-              </div>    
+                </mat-icon>
+                <mat-icon *ngIf="enDropDown[i]" style="cursor: pointer;" (click)="toggleDropDown(i)">
+                  arrow_drop_up
+                </mat-icon>
+              </div>
             </div>
-            <div  *ngIf="!enDropDown[i]" class="supplier-container">
-              <p>
+            <div *ngIf="!enDropDown[i]" class="my-supplier-container">
+              <p class="my-supplier-name">
                 Suppler Details:
-                &emsp;&emsp;
+                &emsp;
                 {{product.supplierName}}
                 &emsp;
-                <span style="color:#7194f5">{{product.supplierYear}}YRS</span>
-                &nbsp;
-                <img class="trade-assuranse"
-                  *ngIf="product.isAssessedSupplier" 
-                  src="../../../assets/images/trade-assurance-alibaba.svg">
-                  &nbsp;
-                <img class="trade-assuranse"
-                  *ngIf="product.isTradeAssuranceSupplier" 
-                  src="../../../assets/images/verified.svg">
+                &emsp;
               </p>
+              <img style="width: 20px;" src='{{"../../../assets/images/"+ product.supplierCountry +".svg"}}'>
+              &emsp;
+              <p style="color:#7194f5;margin:0px;">{{product.supplierYear}}YRS&emsp;</p>
+              <img *ngIf="product.isTradeAssuranceSupplier"
+                src="../../../assets/images/trade-assurance-alibaba.svg">
+                &emsp;
+              <img *ngIf="product.isAssessedSupplier" src="../../../assets/images/verified.svg">
             </div>
             <div class="zippy-container" *ngIf="enDropDown[i]">
               <div class="product-details">
-                <h3 style="margin-left: 10px;">Product details</h3>
+                <p style=" margin-left: 15px; font-weight: bold;">Product details</p>
                 <div class="border-line"></div>
                 <ul style="margin-left: 10px;" class="ul-product-details">
-                  <li *ngFor="let item of product.attributes"
-                  class="li-product-details">
-                    <span class="attr-name">{{item.attrName}}</span> : {{item.attrValue}}
+                  <li *ngFor="let item of product.attributes" class="li-product-details">
+                    <span class="my-attr-name">{{item.attrName}}</span>
+                    <span class="my-attr-value"> : {{item.attrValue}}</span>
                   </li>
                 </ul>
               </div>
               <div class="supplier-details">
-                <h3>Supplier details</h3>
+                <p style="font-weight: bold;">Supplier details</p>
                 <div class="border-line"></div>
-                <h4>{{product.supplierName}}</h4>
+                <p style="margin-top: 5px;font-weight: bold;">{{product.supplierName}}</p>
                 <div class="verification">
-                  <img class="trade-assuranse"
-                  *ngIf="product.isAssessedSupplier" 
-                  src="../../../assets/images/trade-assurance-alibaba.svg">
+                  <ng-container *ngIf="product.isAssessedSupplier">
+                  <img src="../../../assets/images/trade-assurance-alibaba.svg">
+                  <span> Trade Assurance</span> 
+                </ng-container>
                   &nbsp;
-                <img class="trade-assuranse"
-                  *ngIf="product.isTradeAssuranceSupplier" 
-                  src="../../../assets/images/verified.svg">
+                  &nbsp;
+                  <img *ngIf="product.isTradeAssuranceSupplier"
+                    src="../../../assets/images/verified.svg">
                 </div>
                 <ul class="ul-supplier-details">
                   <li *ngIf="product.supplierYear" class="li-supplier-details">
-                    <span class="attr-name">Years on alibaba</span> 
-                    : {{product.supplierYear}}
+                    <span class="my-attr-name">Years on alibaba</span>
+                    <span class="my-attr-value">: {{product.supplierYear}}</span>
                   </li>
-                  <li *ngIf="product.supplierCountry"
-                    class="li-supplier-details">
-                    <span class="attr-name">Country</span> 
-                    : {{product.supplierCountry}}
+                  <li *ngIf="product.supplierCountry" class="li-supplier-details">
+                    <span class="my-attr-name">Country</span>
+                    <span style="display: flex;">
+                      :
+                      <img style="width: 25px;margin: 0px 10px 0px 5px;" src='{{"../../../assets/images/"+ product.supplierCountry +".svg"}}'>
+                      <p class="my-attr-value" style="margin: 0px;">{{product.supplierCountry}}</p>
+                    </span>
                   </li>
-                  <li *ngIf="product.reviewScore"
-                    class="li-supplier-details">
-                    <span class="attr-name">Review Score</span> 
-                   : {{product.reviewScore}}
+                  <li *ngIf="product.reviewScore" class="li-supplier-details">
+                    <span class="my-attr-name">Review Score</span>
+                    <span class="my-attr-value" style="display: flex;">
+                      :
+                      <star-rating-comp class="star-rating-comp"
+                      [starType]="'svg'" 
+                      [staticColor]="'ok'" 
+                      [step]="0.5"
+                      [showHalfStars]="true"
+                      [rating]="product.reviewScore"
+                      [readOnly]="true"></star-rating-comp>
+                      {{product.reviewScore}}
+                    </span>
                   </li>
-                  <li *ngIf="product.businessType"
-                  class="li-supplier-details">
-                    <span class="attr-name">Business Type </span>
-                    :
-                    {{product.businessType}}
+                  <li *ngIf="product.businessType" class="li-supplier-details">
+                    <span class="my-attr-name">Business Type </span>
+                    <span class="my-attr-value">:
+                    {{product.businessType}} </span>
                   </li>
-                  <li *ngIf="product.halfYearOrderNumbe"
-                  class="li-supplier-details">
-                    <span class="attr-name">halfYearOrderNumber</span> 
-                    :
-                    {{product.halfYearOrderNumbe}}
+                  <li *ngIf="product.halfYearOrderNumbe" class="li-supplier-details">
+                    <span class="my-attr-name">half Year Order Number</span>
+                    <span class="my-attr-value">:
+                      {{product.halfYearOrderNumbe}}</span>
                   </li>
-                  <li *ngIf="product.halfYearSalesAmout" 
-                  class="li-supplier-details">
-                    <span class="attr-name">halfYearSalesAmout</span> 
-                    :
-                    {{product.halfYearSalesAmout}}
+                  <li *ngIf="product.halfYearSalesAmout" class="li-supplier-details">
+                    <span class="my-attr-name">half Year Sales Amout</span>
+                    <span class="my-attr-value">:
+                    {{product.halfYearSalesAmout}}</span>
                   </li>
-                  <li *ngIf="product.leadTime"
-                  class="li-supplier-details">
-                    <span class="attr-name">leadTime</span> 
-                    :
-                    {{product.leadTime}}
+                  <li *ngIf="product.leadTime" class="li-supplier-details">
+                    <span class="my-attr-name">lead Time</span>
+                    <span class="my-attr-value">:
+                    {{product.leadTime}}</span>
                   </li>
-                  <li *ngIf="product.supplierTop3TradeRegion"
-                  class="li-supplier-details">
-                    <span class="attr-name">supplierTop3TradeRegion</span> 
-                    :
-                    {{product.supplierTop3TradeRegion}}
+                  <li *ngIf="product.supplierTop3TradeRegion" class="li-supplier-details">
+                    <span class="my-attr-name">Top 3 TradeRegion</span>
+                    <span class="my-attr-value">:
+                    {{product.supplierTop3TradeRegion}}</span>
                   </li>
-                  <li *ngIf="product.supplierMainProducts"
-                  class="li-supplier-details">
-                    <span class="attr-name">supplierMainProducts</span> 
-                    :
-                    {{product.supplierMainProducts}}
+                  <li *ngIf="product.supplierMainProducts" class="li-supplier-details">
+                    <span class="my-attr-name">Main Products</span>
+                    <span class="my-attr-value">:
+                    {{product.supplierMainProducts}}</span>
                   </li>
                 </ul>
               </div>
             </div>
           </div>
-          <mat-paginator [length]="productSourceData.productList.length"
-               [pageSize]="pageSize"
-               [showFirstLastButtons]="true"
-               (page)="pageEvent = pageChange($event)">
+          <mat-paginator [length]="productSourceData.productList.length" [pageSize]="pageSize"
+            [showFirstLastButtons]="true" (page)="pageEvent = pageChange($event)">
           </mat-paginator>
         </div>
       </div>

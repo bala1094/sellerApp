@@ -1,8 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
-@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+@import '~css-star-rating/css/star-rating.css';
+@import '~css-star-rating/css/star-rating.min.css';
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css"; 
 
-html, body
+html,body
 {
     height: 100%;
     font-family: sans-serif;
+}
+
+.rating {
+    outline: none;
 }

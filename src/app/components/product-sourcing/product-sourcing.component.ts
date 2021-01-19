@@ -1,9 +1,10 @@
-import { AppStateManagerService } from './../../services/app-state-manager.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatSelect } from '@angular/material';
 import { onMainContentChange } from './../../models/animations/animation';
 
 import {PageEvent} from '@angular/material/paginator';
 
+import { AppStateManagerService } from './../../services/app-state-manager.service';
 @Component({
   selector: 'app-product-sourcing',
   templateUrl: './product-sourcing.component.html',
@@ -13,7 +14,7 @@ import {PageEvent} from '@angular/material/paginator';
 export class ProductSourcingComponent implements OnInit {
   showPushNav: boolean;
   productFetched = false;
-  searchText: String;
+  searchText = '';
   dataAvailable = false;
   productSourceData: any;
   pageEvent: PageEvent;
@@ -24,7 +25,26 @@ export class ProductSourcingComponent implements OnInit {
   showLowToHigh = false;
   setClearFilter = false;
   supplierCountries: string[];
-  productType = ['trade assurance', 'verified', 'readyToShip'];
+  sortValue = '';
+  orderQuantity = null;
+  minOrderQty = -1;
+  orderPopUp = false;
+  maxPrice = null;
+  minPrice = null;
+  minPriceFilter = null;
+  maxPriceFilter = null;
+
+  @ViewChild('defaultCountry') defaultCountry: MatSelect;
+  @ViewChild('defaultProductType') defaultProductType: MatSelect;
+
+  productType = [
+    {displayText: 'trade assurance', value: 'isTradeAssuranceSupplier', checked: false},
+    {displayText: 'verified', value: 'isAssessedSupplier', checked: false},
+    {displayText: 'ready to ship', value: 'isReadyToShip', checked: false}
+  ];
+  filterElements = [];
+  filterCountriesList = [];
+  filterProductTypeList = [];
   constructor(private appStateManagerService: AppStateManagerService) {
     this.appStateManagerService.showPushNav$.subscribe(res => {
       this.showPushNav = res;
@@ -63,22 +83,24 @@ export class ProductSourcingComponent implements OnInit {
   sort(sortManner: string) {
     this.setClearFilter = true;
     if (sortManner === 'showHighToLow') {
-      this.productSourceData.productList.sort((a, b) => {
-        return b.priceTo - a.priceTo;
-      });
       this.showLowToHigh = true;
+      this.sortValue = 'sortHighToLow';
     } else if (sortManner === 'showLowToHigh') {
-      this.productSourceData.productList.sort((a, b) => {
-        return a.priceTo - b.priceTo;
-      });
       this.showLowToHigh = false;
+      this.sortValue = 'sortLowToHigh';
     }
   }
 
   clearAllFilters() {
     this.fetchdata();
     this.showLowToHigh = false;
+    this.filterCountriesList = [];
+    this.filterProductTypeList = [];
     this.setClearFilter = false;
+    this.sortValue = '';
+    this.minOrderQty = -1;
+    this.productType.forEach(ele => ele.checked = false);
+    [this.minPriceFilter, this.maxPriceFilter] = [null, null];
   }
 
   removeDuplicates(array, key: string) {
@@ -91,7 +113,49 @@ export class ProductSourcingComponent implements OnInit {
     });
     return Object.keys(dummyObj);
   }
-  valueChange(event) {
-    console.log(event);
+
+  valueChange(value, type) {
+    this.setClearFilter = true;
+    const dummyProdustList = [];
+    console.log(value);
+    if ('countries' === type && value !== '' ) {
+      this.filterCountriesList = [];
+      this.filterCountriesList.push(value);
+    } else if ('productType' === type) {
+        this.productType.forEach(ele => {
+          if (ele.value === value) {
+            ele.checked = !ele.checked;
+          }
+          if (ele.checked) {
+            dummyProdustList.push(ele.value);
+          }
+        });
+        this.filterProductTypeList = dummyProdustList;
+      }
+    }
+
+  setMinOrderQty() {
+    this.setClearFilter = true;
+    this.minOrderQty = this.orderQuantity;
   }
+  clearMinOrderQty() {
+    this.orderQuantity = null;
+    this.minOrderQty = this.orderQuantity;
+  }
+
+  setOrderPopUp(state) {
+    console.log(state);
+    this.orderPopUp = state === 'open' ? true : false;
+  }
+
+  setMinMaxPrice() {
+    this.setClearFilter = true;
+    [this.minPriceFilter, this.maxPriceFilter] = [parseInt(this.minPrice, 10), parseInt(this.maxPrice, 10)];
+  }
+
+  clearMinMaxPrice() {
+    [this.minPrice, this.maxPrice] = [null, null];
+    [this.minPriceFilter, this.maxPriceFilter] = [null, null];
+  }
+
 }

@@ -1,23 +1,25 @@
-<div class="sidenav_container">
+<div class="my-sidenav_container">
 	<div (mouseenter)="showFullNav()" (mouseleave)="showhalfNav()">
-		<mat-nav-list [ngClass]="{'active': currenPage === 'resources'}">
-			<a mat-list-item [routerLink]="['/resources']">
-				<img src="./../../../assets/images/resources.svg" alt="">
-				<span
+		<mat-nav-list [ngClass]="{'my-active-menu': currenPage === 'resources'}">
+			<a mat-list-item [routerLink]="['/resources']" (click)="changeShowNavState()">
+				<img *ngIf="currenPage !== 'resources'" src="./../../../assets/images/resources.svg" alt="">
+				<img *ngIf="currenPage === 'resources'" src="./../../../assets/images/resources_blue.svg" alt="">
+				<span [ngClass]="{'my-active-menu': currenPage === 'resources'}"
 				[@animateText]="_showPushNav ? 'show' : 'hide'"
 				>Resources</span>
-				<span 
+				<span [ngClass]="{'my-active-menu': currenPage === 'resources'}"
 				[@animateText]="onHover ? 'show' : 'hide'"
 				>Resources</span>
 			</a>
 		</mat-nav-list>
-		<mat-nav-list [ngClass]="{'active': currenPage === 'productSourcing'}">
-			<a mat-list-item [routerLink]="['/productSourcing']">
-				<img src="./../../../assets/images/product sourcing.svg" alt="">
-				<span 
-				[@animateText]="_showPushNav ? 'show' : 'hide'"
+		<mat-nav-list [ngClass]="{'my-active-menu': currenPage === 'productSourcing'}">
+			<a mat-list-item [routerLink]="['/productSourcing']" (click)="changeShowNavState()">
+				<img *ngIf="currenPage !== 'productSourcing'" src="./../../../assets/images/product sourcing.svg" alt="">
+				<img *ngIf="currenPage === 'productSourcing'" src="./../../../assets/images/product sourcing_blue.svg" alt="">
+				<span [ngClass]="{'my-active-menu': currenPage === 'productSourcing'}"
+				[@animateText]="_showPushNav ? 'show' : 'hide'" 
 				>Product Sourcing</span>
-				<span 
+				<span [ngClass]="{'my-active-menu': currenPage === 'productSourcing'}"
 				[@animateText]="onHover ? 'show' : 'hide'"
 				>Product Sourcing</span>
 			</a>

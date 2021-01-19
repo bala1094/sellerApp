@@ -1,4 +1,4 @@
-<mat-sidenav-container class="container">
+<mat-sidenav-container class="my-container">
   <mat-sidenav mode="side" opened>
     <app-menu [showPushNav]="showPushNav" [currenPage]="'resources'"></app-menu>
   </mat-sidenav>
@@ -9,12 +9,12 @@
 				<span>&nbsp;/&nbsp;Resources</span>
       </div>
       <div class="body-data">
-        <div class="tab">
-          <a [ngClass]="{'active': activeTab === 'all'}"
+        <div class="my-tab">
+          <a class="my-anchor" [ngClass]="{'my-active': activeTab === 'all'}"
           (click)="showResources('all')">All</a>
-          <a [ngClass]="{'active': activeTab === 'blog'}"
+          <a class="my-anchor" [ngClass]="{'my-active': activeTab === 'blog'}"
           (click)="showResources('blog')">Blog</a>
-          <a [ngClass]="{'active': activeTab === 'video'}"
+          <a class="my-anchor" [ngClass]="{'my-active': activeTab === 'video'}"
           (click)="showResources('video')">Video</a>
         </div>  
         <div class="search-bar">

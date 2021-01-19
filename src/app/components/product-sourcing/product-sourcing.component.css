@@ -1,52 +1,49 @@
-mat-sidenav-container {
+.my-container {
+  height: 100%;
   background-color: #f2f3f5;
 }
 
-.container {
-  height: 100%;
-}
-
-.main_content {
+.my-main_content {
   margin-left: 5%;
   width: 90%;
 }
 
-.route-text {
+.my-route-text {
   margin-top: 30px;
   font-size: 20px;
   margin-bottom: 20px;
 }
 
-.route-text img {
+.my-route-text img {
   width: 20px;
   height: 20px;
 }
 
-.body-data {
+.my-body-data { 
   background-color: white;
-  width: 90%;
 }
 
-.search-containter {
+.my-search-containter {
   height: auto;
   padding: 20px 50px 20px 50px;
 }
 
-.powered-by-container {
+.my-powered-by-container {
   display:flex;
 }
 
-.powered-by-container p {
+.my-powered-by-container p {
+  margin: 0px;
   margin-right: 10px;
   opacity: 0.7;
 }
 
-.search-box {
+.my-search-box {
   display: flex;
   margin-top: 30px;
 }
 
-.search-box-input {
+.my-search-box-input {
   width: 45%;
   height: 50px;
   min-width: 200px;
@@ -57,110 +54,129 @@ mat-sidenav-container {
   padding-left: 20px;
 }
 
-.search-box-input:focus {
+.my-search-box-input:focus {
   outline: none;
 }
 
-.search-text-btn {
+.my-search-text-btn {
   margin: 0px;
   border-radius: 10px;
   width: 15%;
   background-color: #2c8af8;
   color: white;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 56px; 
   font-size: 20px;
   cursor: pointer;
 }
 
-.notes-containter {
+.my-notes-containter {
   display: flex;
   margin-top: 80px;
   width: 100%;
 }
 
-.notes {
+.my-notes {
   width: 250px;
   margin-right: 50px;
 }
 
-.notes p {
+.my-notes p {
   font-size: 15px;
   opacity: 0.7;
 }
+.my-notes img {
+  margin: 10px;
+  margin-left: 0px;
+}
 
-.search-align {
+.my-search-align {
   justify-content: center;
 }
 
-.result-summary {
+.my-result-summary {
   display: flex;
   width: 100%;
 }
 
-.result-number {
+.my-result-number {
   flex-grow: 1;
   display: flex;
   justify-content: flex-end;
   opacity: 0.7;
   font-style: italic;
+  color:#c2c2c2;
 }
 
-.product-data-containter {
-  margin : 10px;
+.my-product-data-containter {
+  margin : 0px;
+  margin-top: 10px;
 }
-.data-containter {
+.my-data-containter {
   display: flex;
-  border: 1px solid grey;
+  border: 1px solid#d4d5d6;
 }
 
-.data-containter .img img{
+.my-data-containter img{
   width: 100px;
   height: 100px;
+  margin: 5px;
+  margin-right: 10px;
 }
-.title-container {
+.my-title-container {
   flex-grow: 5;
+  align-self: center;
 }
 
-.vendor-details {
+.my-title-text {
+  color: #2c8af8;
+}
+
+
+.my-vendor-details {
   display: flex;
   align-items: center;
 }
+
+.my-vendor-details .vendor-logo img{
+  width: 80%
+}
+
 a, a:hover, a:focus, a:active {
   text-decoration: none;
   color: black;
 }
 
-.vendor {
+.my-vendor {
   color: orange;
   margin-right: 20px;
   cursor: pointer;
 }
 
-.supplier-container {
+.my-supplier-container {
   background-color: #f2f3f5;
   border-width: 0px 1px 1px 1px; 
   border-style: solid;
-  border-color: grey;
+  border-color:#d4d5d6;
+  display: flex;
+  align-items: center;
+  height: 50px;
 }
 
-.supplier-container p{
+.my-product-data-containter .my-supplier-container .my-supplier-name{
   padding-left: 10px;
   display: inline-block;
-  width: calc(100%-2px);
+  margin: 0px;
 }
 
 .zippy-container {
   display: flex;
   justify-content: space-between;
   background-color: #f2f3f5;
-  width: calc(100%-20px);
+  width: 100%;
   padding: 10px;
 }
 .border-line {
   width: 100%;
-  border-bottom:1px solid grey;
+  border-bottom:1px solid#d4d5d6;
 }
 .ul-product-details, .ul-supplier-details {
   list-style-type:none;
@@ -175,15 +191,22 @@ a, a:hover, a:focus, a:active {
 .li-product-details, .li-supplier-details {
   display: table-row;
   margin: 10px;
+  font-size: 15px;
 }
-.attr-name {
+.my-attr-name {
   display: table-cell;
   padding: 5px;
+  width: 200px;
+}
+
+.my-attr-value {
+  font-weight: bold;
 }
 
 .array-manipulation-container {
   display : flex;
   width: 100%;
+  flex-wrap: wrap;
 }
 
 .custom-function-container {
@@ -191,44 +214,45 @@ a, a:hover, a:focus, a:active {
   flex-grow: 2;
 }
 
-.sort-container {
-  display: flex;
+.my-sort-container {
+  display: flex; 
   justify-content: flex-end;
   position: relative;
 }
 
-.sort-container img {
-  width: 25px;
-  height: 25px;
+.my-sort-container img {
+  width: 40px;
+  height: 40px;
   padding: 5px;
-  border: 1px solid grey;
+  border: 1px solid#d4d5d6;
   border-radius: 6px;
   margin: 10px;
   margin-right: 30px;
 }
 
-.sort-container .tooltiptext {
+.my-sort-container .tooltiptext {
   visibility: hidden;
   width: 120px;
   background-color: white;
   color: black;
-  border: 1px grey solid;
+  border: 1px#d4d5d6 solid;
   text-align: center;
   border-radius: 6px;
   padding: 5px 0;
-  top: -25px;
+  top: -55px;
   left: -50px;
   /* Position the tooltip */
   position: absolute;
   z-index: 1;
 }
 
-.sort-container img:hover ~ .tooltiptext{
+.my-sort-container img:hover~.tooltiptext{
   visibility: visible;
 }
 
-.active {
+.my-active {
   margin-top: 10px;
+  padding: 5px;
   border-radius: 10px;
   width: 100px;
   background-color: #2c8af8;
@@ -245,7 +269,7 @@ a, a:hover, a:focus, a:active {
   padding: 5px;
   border-radius: 10px;
   width: 100px;
-  background-color: grey;
+  background-color: #f2f3f5;
   color: black;
   text-align: center;
   vertical-align: middle;
@@ -263,3 +287,82 @@ a, a:hover, a:focus, a:active {
   width: 150px;
   margin-right: 30px;
 }
+
+.order-quantity-container {
+  margin-top: 10px;
+  padding: 5px;
+  border: 1px solid black;
+  display: flex;
+  height: 30px;
+  border-radius: 8px;
+  position: relative;
+  line-height: 30px;
+}
+
+.order-quantity-container p{
+  margin: 2px;
+}
+.order-quantity-details {
+  display: flex;
+  justify-content: center;
+}
+
+
+.order-active {
+  margin: 10px;
+  padding: 1px;
+  border-radius: 10px;
+  width: 100px;
+  background-color: #2c8af8;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+  font-size: 15px;
+  cursor: pointer;
+
+}
+
+.order-in-active {
+  margin: 10px;
+  padding: 1px;
+  border-radius: 10px;
+  width: 100px;
+  background-color: #f2f3f5;
+  color: black;
+  text-align: center;
+  vertical-align: middle;
+  line-height: 30px;
+  font-size: 15px;
+  cursor: not-allowed;
+}
+
+.order-quantity-input {
+  height: 30px;
+  margin: 10px;
+  border-radius: 8px;
+  border: 0.5px solid#d4d5d6;
+}
+
+.order-quantity-input:focus {
+  outline: none;
+}
+
+.d-inline-block {
+  margin: 5px;
+}
+
+.my-price-container {
+  display: flex;
+}
+.my-border-line {
+  width: 60px;
+  margin: 12px;
+  height: 10px;
+  border-bottom: 2px solid #cccbc8;  
+}
+
+.verification {
+  color: orange;
+}
+

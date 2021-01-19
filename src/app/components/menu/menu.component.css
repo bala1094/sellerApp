@@ -1,10 +1,10 @@
-.sidenav_container {
+.my-sidenav_container {
     height: 100%;
     background-color: #f2f3f5;
 }
 
 
-.active {
+.my-active-menu {
     color: #2c8af8;
 }
 
@@ -15,7 +15,11 @@ img {
     margin-right: 20px;
    }
    
-   span {
-       font-size: 20px;
-       font-family: Open Sans,"sans-serif";
-   }
+span {
+    font-size: 20px;
+    font-family: Open Sans,"sans-serif";
+}
+
+mat-nav-list {
+    padding: 0px;
+}

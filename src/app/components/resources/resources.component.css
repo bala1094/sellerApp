@@ -1,9 +1,11 @@
-mat-sidenav-container {
-    background-color: #f2f3f5;
-  }
 
-.container {
+p {
+  margin: 0px;
+  padding: 0px;
+}
+.my-container {
     height: 100%;
+    background-color: #f2f3f5;
 }
 
 .main_content {
@@ -22,16 +24,16 @@ mat-sidenav-container {
 }
 
 /* Style the tab */
-.tab {
+.my-tab {
     margin: 20px 0px 20px 0px;
     list-style-type: none;
     text-align: center;
-    height: 25px;
+    height: 35px;
     border-bottom: 1px solid grey;
   }
   
   /* Style the buttons inside the tab */
-  a {
+  .my-anchor {
     width: 5%;
     min-width: 80px;
     background-color: inherit;
@@ -40,13 +42,14 @@ mat-sidenav-container {
     outline: none;
     cursor: pointer;
     padding: 0px;
-    padding-bottom: 5px;
+    padding-bottom: 0px;
     font-size: 17px;
     margin-bottom: 10px;
   }
 
-  .active {
+  .my-active {
     color: #2c8af8;
+    padding-bottom: 6px;
     border-bottom: 4px solid #2c8af8;
   }
 
@@ -90,25 +93,26 @@ mat-sidenav-container {
     width: 400px;
     height: 100px;
     background-color: white;
+    vertical-align: center;
   }
   .resource-text-container {
     margin-left: 10px;
+    margin-top: 3%;
     float: left;
     width: 60%;
   }
   .resource-btn-container {
     background-color: #2c8af8;
-    height: 30px;
     color: white;
     outline: none;
     width: 20%;
     position: relative;
     float: left;
-    top: 25%;
+    top: 50%;
     left: 25%;
     transform: translate(-50%, -50%);
     text-align: center;
-    padding-top: 15px;
+    padding: 10px;
     font-size: 15px;
-    margin-right: 10px;
+    border-radius: 8px;
   }

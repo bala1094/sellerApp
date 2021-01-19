@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 
 import { AppStateManagerService } from './../../services/app-state-manager.service';
 import { animateText } from './../../models/animations/animation';
@@ -9,7 +9,7 @@ import { animateText } from './../../models/animations/animation';
   styleUrls: ['./menu.component.css'],
   animations: [animateText]
 })
-export class MenuComponent implements OnInit, OnChanges {
+export class MenuComponent implements OnChanges {
 
   @Input() showPushNav: boolean;
   @Input() currenPage: string;
@@ -19,23 +19,23 @@ export class MenuComponent implements OnInit, OnChanges {
 
   constructor(private appStateManagerService: AppStateManagerService) { }
 
-  ngOnInit() {
-
-  }
-
   ngOnChanges() {
     this._showPushNav = this.showPushNav;
-    console.log(this.currenPage);
   }
 
   showFullNav() {
       this.onHover = this._showPushNav ? this.onHover : true;
-      console.log('this._showPushNav ', this._showPushNav);
-      console.log(this.currenPage);
   }
 
   showhalfNav() {
       this.onHover = this._showPushNav ? this.onHover : false;
+  }
+
+  // when moving from one page to another through subject icon, then set push nav to false
+  changeShowNavState() {
+    if (this.appStateManagerService.showPushNav === true) {
+      this.appStateManagerService.onButtonClick();
+    }
   }
 
 }

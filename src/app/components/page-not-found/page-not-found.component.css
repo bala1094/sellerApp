@@ -1,0 +1,51 @@
+* {
+    margin: 0;
+}
+.my-container {
+    height: 100%;
+    background-color: #f2f3f5;
+  }
+  
+  .my-main_content {
+    margin-left: 5%;
+    width: 90%;
+  }
+  
+  .my-route-text {
+    margin: 30px;
+    height: 30px;
+  }
+  
+  .my-body-data { 
+    background-color: white;
+    width: 90%;
+    height: 500px;
+  }
+.error-containter
+  {
+    padding: 10%;
+    padding-top: 40px; 
+  }
+.whoop {
+    font-weight: 600;
+    font-size: 80px;
+}
+
+.we-couldnt {
+    font-weight: 400;
+    font-size: 60px;
+}
+
+.we-are-looking {
+    font-weight: 300;
+    font-size: 40px;
+}
+
+.error-code {
+    font-weight: 200;
+    font-size: 20px;
+}
+
+.read-only {
+  width: 150px !important;
+}

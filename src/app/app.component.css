@@ -1,4 +1,4 @@
-#header {
+#my-header {
     width: 100%;
     height: 50px;
 }
@@ -8,7 +8,7 @@
     font-size: 30px;
     cursor: pointer;
 }
-.logo {
+.my-logo {
     width: 130px;
-    height: 30px
+    padding-bottom: 20px;
 }
